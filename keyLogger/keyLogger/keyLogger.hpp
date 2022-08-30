@@ -13,8 +13,6 @@ LRESULT keyBoardCallBack(int code, WPARAM wParam, LPARAM lParam);
 
 static HHOOK hook;
 
-static bool state;
-
 static KBDLLHOOKSTRUCT kbStruct;
 
 static std::string prevName;
