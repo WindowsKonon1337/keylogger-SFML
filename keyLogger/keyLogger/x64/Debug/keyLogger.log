@@ -1,5 +1,0 @@
-﻿  keyLogger.cpp
-  main.cpp
-  Создание кода...
-keyLogger.obj : error LNK2019: ссылка на неразрешенный внешний символ "__declspec(dllimport) public: static class sf::Time const sf::Time::Zero" (__imp_?Zero@Time@sf@@2V12@B) в функции "bool __cdecl transform(int const &)" (?transform@@YA_NAEBH@Z).
-F:\1488\programms\ord\project\keyLogger\x64\Debug\keyLogger.exe : fatal error LNK1120: неразрешенных внешних элементов: 1
